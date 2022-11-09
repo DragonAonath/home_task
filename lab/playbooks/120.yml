@@ -3,9 +3,9 @@
   become: yes
   vars:
     apt_key_sig: 58118E89F3A912897C070ADBF76221572C52609D
-    apt_key_url: hkp://p80.pool.sks-keyservers.net:80
-    apt_repository: deb https://apt.dockerproject.org/repo ubuntu-xenial main
-    docker_pkg_name: docker-engine
+    apt_key_url: https://download.docker.com/linux/ubuntu/gpg
+    apt_repository: deb https://download.docker.com/linux/ubuntu focal stable
+    docker_pkg_name: docker-ce
     docker_dir: /home/vagrant/Dummy
     service_bin_file: ../files/dummy
     dockerfile_name: ../files/Dockerfile
@@ -13,11 +13,11 @@
   tasks:
 
     #http://wiki.nareyko.by/ansible._could_not_find_aptitude._please_ensure_it_is_installed
-  - name: "FIX: Ubuntu 16.04 LTS doesn't come with certain modules, required by ansible"
-    raw: apt-get install python-minimal aptitude -y
-    become: true
-    become_user: root
-    become_method: sudo
+  #- name: "FIX: Ubuntu 16.04 LTS doesn't come with certain modules, required by ansible"
+  #  raw: apt-get install python-minimal aptitude -y
+  #  become: true
+  #  become_user: root
+  #  become_method: sudo
 
   - name: Run the equivalent of "apt-get update" as a separate step
     apt:
@@ -46,8 +46,7 @@
 #sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
   - name: Add Docker repository key
     apt_key:
-      id: "{{ apt_key_sig }}"
-      keyserver: "{{ apt_key_url }}"
+      url: "{{ apt_key_url }}"
       state: present
 
 #sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
