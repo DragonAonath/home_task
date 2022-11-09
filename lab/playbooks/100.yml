@@ -62,3 +62,11 @@
       user: vagrant
       job: "{{ job_dir }}/job.sh 2>>{{ job_dir }}/job.err 1>>{{ job_dir }}/job.log"
       name: "auto job"
+
+  - name: Add logrotate config
+    copy:
+      src: ../files/logrotate.script.conf
+      dest: /etc/logrotate.d/script
+      owner: root
+      group: root
+      mode: '0644'
