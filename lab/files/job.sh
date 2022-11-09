@@ -1,6 +1,6 @@
 #!/bin/sh
 SERVER=machine120.test
-PORT=8180
+PORT=8080
 PYTHON='/usr/bin/python3'
 CURL='/usr/bin/curl -sSL'
 PY=job.py
